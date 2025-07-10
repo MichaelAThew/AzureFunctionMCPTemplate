@@ -45,9 +45,14 @@ AzureFunctionMCPTemplate/
 │   ├── run-azure-function.sh   # Run as Azure Function
 │   └── test-mcp-server.sh      # Test MCP protocol
 │
+├── docs/
+│   ├── README.md
+│   ├── MCP-PROTOCOL.md
+│   └── DEPLOYMENT.md
+│
 ├── .gitignore
-├── README.md
-└── Template.sln
+├── Template.sln
+└── README.md
 ```
 
 ### Key Features Implemented
@@ -58,15 +63,15 @@ AzureFunctionMCPTemplate/
    - Default runs as Azure Function
 
 2. **Clean Architecture** (from WorkzoneMCP)
-   - Separated concerns across projects
-   - Core: Interfaces and models
+   - Core: Domain models and interfaces
    - Services: Business logic
-   - Functions: Entry points and infrastructure
+   - Functions: Azure Function entry points
+   - Tests: Comprehensive testing
 
-3. **MCP Server Implementation** (from ServiceNowMCP)
-   - Complete JSON-RPC implementation using StreamJsonRpc
+3. **MCP Implementation** (from ServiceNowMCP)
+   - StreamJsonRpc integration
+   - Complete MCP protocol handling
    - Tool registration and execution
-   - Error handling and logging
 
 4. **HTTP Resilience** (from ServiceNowMCP)
    - Polly policies for retry, circuit breaker, and timeout
