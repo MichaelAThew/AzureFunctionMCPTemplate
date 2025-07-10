@@ -24,6 +24,9 @@ AzureFunctionMCPTemplate/
 │   │   │   └── HealthCheckFunction.cs # Sample HTTP trigger
 │   │   ├── MCP/
 │   │   │   └── McpServer.cs         # MCP server implementation
+│   │   ├── Adapters/
+│   │   │   ├── AzureOpenAIAdapter.cs # Azure OpenAI integration
+│   │   │   └── ToolAdapter.cs        # Generic tool HTTP adapter
 │   │   ├── Program.cs               # Dual-mode entry point
 │   │   ├── host.json
 │   │   ├── local.settings.json
@@ -43,7 +46,12 @@ AzureFunctionMCPTemplate/
 ├── scripts/
 │   ├── run-mcp-server.sh       # Run as MCP server
 │   ├── run-azure-function.sh   # Run as Azure Function
-│   └── test-mcp-server.sh      # Test MCP protocol
+│   ├── test-mcp-server.sh      # Test MCP protocol
+│   └── rename-template.sh      # Helper to rename template
+│
+├── docs/
+│   ├── AZURE_OPENAI_INTEGRATION.md  # Azure OpenAI guide
+│   └── AZURE_OPENAI_EXAMPLES.cs     # Code examples
 │
 ├── .gitignore
 ├── README.md
@@ -68,11 +76,17 @@ AzureFunctionMCPTemplate/
    - Tool registration and execution
    - Error handling and logging
 
-4. **HTTP Resilience** (from ServiceNowMCP)
+4. **Azure OpenAI Integration** (new addition)
+   - Full function calling support for GPT-4/GPT-3.5
+   - HTTP adapters for any AI service
+   - Batch tool execution
+   - Model selection strategies
+
+5. **HTTP Resilience** (from ServiceNowMCP)
    - Polly policies for retry, circuit breaker, and timeout
    - Configurable through settings
 
-5. **Configuration Management**
+6. **Configuration Management**
    - Options pattern for configuration
    - Environment variable support
    - local.settings.json for development
@@ -92,6 +106,8 @@ AzureFunctionMCPTemplate/
    - Solution file organization
 
 3. **Additional Improvements:**
+   - Azure OpenAI integration
+   - Generic tool adapters
    - Comprehensive documentation
    - Example implementations
    - Test scripts
@@ -102,7 +118,7 @@ AzureFunctionMCPTemplate/
 
 1. **For New Projects:**
    - Copy the entire template
-   - Find/Replace "Template" with your project name
+   - Use the rename script: `./scripts/rename-template.sh YourProjectName`
    - Update namespaces accordingly
    - Implement your specific services and MCP tools
 
@@ -111,6 +127,7 @@ AzureFunctionMCPTemplate/
    - `McpServer.cs`: Add your MCP tools
    - `Services/`: Implement your business logic
    - `Functions/`: Add Azure Function endpoints
+   - `Adapters/`: Customize AI integrations
 
 3. **Running the Template:**
    ```bash
@@ -123,6 +140,15 @@ AzureFunctionMCPTemplate/
    # Test MCP Protocol
    ./scripts/test-mcp-server.sh
    ```
+
+### AI Model Support
+
+The template now supports multiple AI models:
+
+- **Claude**: Native MCP protocol support
+- **Azure OpenAI**: GPT-4, GPT-3.5 via function calling
+- **Custom GPTs**: Via OpenAPI specification
+- **Any AI Service**: Generic HTTP adapters
 
 ### Migration Guide
 
@@ -145,4 +171,4 @@ AzureFunctionMCPTemplate/
 3. Document any additional patterns discovered
 4. Consider creating a dotnet template for easy scaffolding
 
-This template provides a solid foundation for any Azure Function project that needs MCP server capabilities while maintaining clean architecture principles.
+This template provides a solid foundation for any Azure Function project that needs MCP server capabilities while maintaining clean architecture principles and supporting multiple AI models.
